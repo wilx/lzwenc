@@ -644,7 +644,8 @@ class LZWEnc
                         final EpsGraphics2D out = new EpsGraphics2D ("Komprese",
                                 outputFile, 0, 0, size.width, size.height);
                         out.setColorDepth (colorMode);
-                        vv.paintComponents (out);
+                        //vv.paintComponents (out);
+                        vv.paintAll(out);
                         out.flush ();
                         out.close ();
                         out.dispose ();
@@ -680,10 +681,13 @@ class LZWEnc
                     final Graphics g = image.getGraphics ();
                     g.setColor (Color.WHITE);
                     g.fillRect (0,0, size.width, size.height);
-                    vv.paintComponents (g);
+                    //vv.paintComponents (g);
+                    vv.paintAll(g);
                     try (final OutputStream out = new FileOutputStream (outputFile))
                     {
-                        ImageIO.write(image, "jpg", out);
+                        final boolean ret = ImageIO.write(image, "jpg", out);
+                        if (! ret)
+                            System.err.println("no JPG writer");
                     }
                     catch (final Exception ex)
                     {
