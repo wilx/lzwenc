@@ -1,0 +1,99 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 36KOD-lzw v0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-05-21 11:15+0200\n"
+"PO-Revision-Date: 2006-06-21 22:19+0200\n"
+"Last-Translator: Václav Haisman <haismav@fel.cvut.cz>\n"
+"Language-Team: cs <haismav@fel.cvut.cz\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: LZWEnc.java:242
+msgid "LZW encoding"
+msgstr "LZW komprese"
+
+#: LZWEnc.java:274
+msgid "begin"
+msgstr ""
+
+#: LZWEnc.java:275
+msgid "  initialize dictionary"
+msgstr "  inicializace slovníku"
+
+#: LZWEnc.java:276
+msgid "  current_node = root"
+msgstr "  současný_uzel = kořen"
+
+#: LZWEnc.java:277
+msgid "  while not eof(input) do begin "
+msgstr "  while not eof(vstup) do begin "
+
+#: LZWEnc.java:278
+msgid "     letter = getchar(input)"
+msgstr "     písmeno = getchar(vstup)"
+
+#: LZWEnc.java:279
+msgid "     next_node = current_node.edges[letter]"
+msgstr "     další_uzel = současný_uzel.hrany[písmeno]"
+
+#: LZWEnc.java:280
+msgid "     if can't go further from current_node then begin"
+msgstr "     if nelze jít ze současného_uzlu dále then begin"
+
+#: LZWEnc.java:281
+msgid "       output = current_node.number"
+msgstr "       výstup = současný_uzel.číslo"
+
+#: LZWEnc.java:282
+msgid ""
+"       insert new edge through input letter from current_node with number = "
+"node_count"
+msgstr "       vlož nový přechod ze současného_uzlu přes písmeno do nového uzlu s číslem = počet_uzlů"
+
+#: LZWEnc.java:283
+msgid "       increment node_count"
+msgstr "       inkremenetuj počet_uzlů"
+
+#: LZWEnc.java:284
+msgid "       current_node = move from root to next node through input letter"
+msgstr "       současný_uzel = kořen.hrany[vstupní písmeno]"
+
+#: LZWEnc.java:285 LZWEnc.java:288
+msgid "     end"
+msgstr ""
+
+#: LZWEnc.java:286
+msgid "     else begin"
+msgstr ""
+
+#: LZWEnc.java:287
+msgid "       current_node = next_node"
+msgstr "       současný_uzel = další_uzel"
+
+#: LZWEnc.java:289
+msgid "  end"
+msgstr ""
+
+#: LZWEnc.java:290
+msgid "end"
+msgstr ""
+
+#: LZWStatsPanel.java:26
+msgid "Input:"
+msgstr "Vstup:"
+
+#: LZWStatsPanel.java:31
+msgid "Output:"
+msgstr "Výstup:"
+
+#: LZWStatsPanel.java:36
+msgid "Compression ration:"
+msgstr "Kompresní poměr:"
