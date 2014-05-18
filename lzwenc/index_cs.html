@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <!-- DOPLŇTE JMÉNO -->
+ <title>36KOD Komprese dat - Komprese LZW</title>
+ <link rel="STYLESHEET" type="text/css" href="../styl.css"/>
+</head>
+
+<body>
+<div id="main-applet-body">
+  <div id="top">
+   <div class="lang">
+     <a href="index_en.html">English</a>
+   </div>
+   <a href="#">zpět</a>
+   <a href="../index.html">hlavní stránka</a>
+   <a href="../obsah.html">obsah</a>
+   <a href="#">další</a>
+  </div>
+  <div id="main">
+  <h1>Komprese LZW</h1>
+
+  <div class="section-features">
+  <h2>Základní informace</h2>
+  <div class="section-body">
+    <ul>
+      <li>výstup: série čísel / ukazatelů do slovníku</li>
+      
+      <li>rostoucí slovník</li> 
+              
+      <li>poslední symbol předchozí fráze je první symbol následující
+        fráze</li>
+    </ul>
+  </div>
+  </div>
+
+  <div class="section-history">
+    <h2>Historie</h2>
+    <div class="section-body">
+      <ul>
+        <li>Roku 1984 Terry Welch vynalezl LZW.</li>
+	
+        <li>Roku 1985 byl Sperry Corporation udělen patent na LZW.</li>
+	
+        <li>Unisys získal Sperry Corporation.</li>
+        
+        <li>Společnost CompuServe vytvořila formát GIF (s použitím LZW).</li>
+        
+        <li>GIF se stal běžně používaným formátem obrázků.</li>
+        
+        <li>Unisys žádá CompuServe, aby si zakoupila licenci.</li>
+        
+        <li>Další udělené licence: Aldus (1991, TIFF), Adobe (1990,
+          PostScript level II), ...</li>
+        
+        <li>Byl vytvořen formát PNG (Portable Network Graphics), aby
+          nahradil GIF a vyhnul se použití licencovaného LZW
+          algoritmu.</li>
+        
+        <li>LZW patenty vypršely v roce 2003 v USA a v roce 2004 v
+          Evropě, Japonsku, Kanadě.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-description">
+    <h2>Popis</h2>
+    <div class="section-body">
+      <p>
+        Tento kompresní algoritmus vytváří slovní z komprimovaného textu.
+        Slovník mapuje (obvykle) 12 bitová kódová slova na řetězce. Slovník
+        je inicializovaný všemi jednopísmennými slovy, tedy 256 znaky v případě
+        8 bitových znaků. Jak kompresor prochází znak po znaku text, tak přidává
+        do slovníku každou nalezenou unikátní dvouznakovou frázi, jako zřetězení
+        kódu a znaku, kde kód ukazuje na odpovídající první znak. Když je
+        dvouznaková fráze přidávána do tabulky, tak je na výstup poslán kód 
+        odpovídajícího prvního znaku. Pokaždé, když je už dříve nalezená fráze
+        přečtena ze vstupu, tak se zjišťuje taková nejdelší fráze, a pak je kód
+        pro tuto nejdelší nalezenou frázi zřetězen s dalším znakem na vstupu 
+        a tato nová fráze je předána do tabulky. Kód pro předchozí nejdelší
+        nalezenou frázi je poslán na výstup a znak, který rozšířil předchozí
+        nejdelší nalezenou frázi je použit jako první znak další hledané fráze.
+      </p>
+    </div>
+  </div>
+  
+  <div class="section-code">
+    <h2>Pseudokód</h2>
+    <div class="section-body">
+      <pre>
+	<code>
+ <strong>begin</strong>
+   inicializace slovniku
+   soucasny_uzel = koren
+   while not eof(vstup) do <strong>begin</strong>
+     pismeno = getchar(vstup)
+     dalsi_uzel = soucasny_uzel.hrany[pismeno]
+     <strong>if</strong> nelze jit dal ze soucasneho_uzlu then <strong>begin</strong>
+       vystup = soucasny_uzel.cislo
+       vloz novou hranu krz vstupni pismeno ze soucasneho_uzlu k novemu uzlu s cislem = pocet_uzlu
+       zvys pocet_uzlu
+       soucasny_uzel = posun se z korene do dalsiho uzlu krz vstupni pismeno
+     <strong>end</strong>
+     else <strong>begin</strong>
+       soucasny_uzel = dalsi_uzel
+     <strong>end</strong>
+   <strong>end</strong>
+ <strong>end</strong>
+	</code>
+      </pre>
+    </div>
+  </div>
+  
+  <div class="section-references">
+    <h2>Odkazy</h2>
+    <div class="section-body">
+      <ul>
+        <li><a href="http://en.wikipedia.org/wiki/LZW">Článek na WikiPedia</a></li>
+        <li><a href="http://service.felk.cvut.cz/courses/36KOD/36KOD-07-slovnikove-4.pdf">slidy</a> na 36KOD</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-example">
+    <h2>Ukázka</h2>
+    <!-- Následuje vložení appletu -->
+    <!-- Upravte hodnoty podle svých potřeb. Toto nastavení je pro
+    testovací applet -->
+    <div class="applet">
+      <applet
+         code="lzwenc.LZWEnc.class" archive="lzwenc.jar, libintl.jar,
+         commons-collections-3.2.jar, jung-1.7.4.jar, colt.jar,
+         ../Dip.jar, ../epsgraphics.jar" width="100%" height="500">
+        <!-- Na české stránce musí být cs -->
+        <param name="locale" value="cs" />
+      </applet>
+    </div><!-- applet -->
+  </div>
+
+  </div><!-- main -->
+  <div id="footer">
+    <div class="lang">
+      <a href="index_en.html">English</a>
+    </div>
+    <a href="#">zpět</a>
+    <a href="../index.html">hlavní stránka</a>
+    <a href="../obsah.html">obsah</a>
+    <a href="#">další</a>
+  </div>
+</div>
+</body>
+</html>

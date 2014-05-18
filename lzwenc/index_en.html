@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- DOPLŇTE JMÉNO -->
+  <title>36KOD Data Compression - LZW compression</title>
+  <link rel="STYLESHEET" type="text/css" href="../styl.css"/>
+</head>
+
+<body>
+<div id="main-applet-body">
+  <div id="top">
+   <div class="lang">
+     <a href="index_cs.html">česky</a>
+   </div>
+   <a href="#">back</a>
+   <a href="../index_en.html">main page</a>
+   <a href="../content.html">content</a>
+   <a href="#">next</a>
+  </div>
+  <div id="main">
+  <h1>LZW compression</h1>
+
+  <div class="section-features">
+  <h2>Main features</h2>
+  <div class="section-body">
+    <ul>
+      <li>output: a series of numbers / pointers to dictionary</li>
+
+      <li>growing dictionary</li>
+
+      <li>last symbol of previous phrase is first symbol of the
+	following phrase</li>
+    </ul>
+  </div>
+  </div>
+
+  <div class="section-history">
+  <h2>History</h2>
+  <div class="section-body">
+    <ul>
+      <li>1984 Terry Welch invented LZW.</li>
+
+      <li>1985 LZW patent granted to Sperry Corporation.</li>
+
+      <li>Unisys acquired Sperry Corporation.</li>
+
+      <li>CompuServe designed GIF format (using LZW).</li>
+
+      <li>GIF became common picture format.</li>
+
+      <li>Unisys asked CompuServe for a license.</li>
+
+      <li>Other important licensees: Aldus (1991, TIFF), Adobe (1990,
+	PostScript level II), ...</li>
+
+      <li>PNG (Portable Network Graphics) developed to replace GIF and
+	avoid pattent claims.</li>
+
+      <li>LZW patents expired in 2003 in USA and in 2004 in Europe,
+	Japan, Canada.</li>
+    </ul>
+  </div>
+  </div>
+
+  <div class="section-description">
+  <h2>Description</h2>
+  <div class="section-body">
+    <p>
+      The compressor algorithm builds a string translation table from
+      the text being compressed. The string translation table maps
+      fixed-length codes (usually 12-bit) to strings. The string table
+      is initialized with all single-character strings (256 entries in
+      the case of 8-bit characters). As the compressor
+      character-serially examines the text, it stores every unique
+      two-character string into the table as a code/character
+      concatenation, with the code mapping to the corresponding first
+      character. As each two-character string is stored, the first
+      character is outputted. Whenever a previously-encountered string
+      is read from the input, the longest such previously-encountered
+      string is determined, and then the code for this string
+      concatenated with the extension character (the next character in
+      the input) is stored in the table. The code for this longest
+      previously-encountered string is outputted and the extension
+      character is used as the beginning of the next string.
+    </p>
+  </div>
+  </div>
+  <div class="section-code">
+  <h2>Pseudo-code</h2>
+  <div class="section-body"><pre><code>
+ <strong>begin</strong>
+   initialize dictionary
+   <em>current_node</em> = <em>root</em>
+   <strong>while not</strong> eof(<em>input</em>) <strong>do begin</strong>
+     <em>letter</em> = getchar(<em>input</em>)
+     <em>next_node</em> = <em>current_node</em>.<em>edges</em>[<em>letter</em>]
+     <strong>if</strong> can't go further from current_node <strong>then begin</strong>
+       <em>output</em> = <em>current_node</em>.<em>number</em>
+       insert new edge through input <em>letter</em> from <em>current_node</em> with <em>number</em> = <em>node_count</em>
+       increment <em>node_count</em>
+       <em>current_node</em> = move from <em>root</em> to next node through input <em>letter</em>
+     <strong>end</strong>
+     <strong>else begin</strong>
+       <em>current_node</em> = <em>next_node</em>
+     <strong>end</strong>
+   <strong>end</strong>
+ <strong>end</strong></code></pre>
+  </div>
+  </div>
+
+  <div class="section-references">
+  <h2>References</h2>
+  <div class="section-body">
+    <ul>
+      <li><a href="http://en.wikipedia.org/wiki/LZW">WikiPedia article</a></li>
+      <li><a href="http://service.felk.cvut.cz/courses/36KOD/36KOD-07-slovnikove-4.pdf">slides</a> - 36KOD slides</li>
+    </ul>
+  </div>
+  </div>
+
+  <div class="section-example">
+  <h2>Example</h2>
+  <!-- applet  -->
+  <div class="applet">
+    <applet
+      archive = "lzwenc.jar, libintl.jar, commons-collections-3.2.jar, jung-1.7.4.jar, colt.jar, ../Dip.jar, ../epsgraphics.jar"
+      code ="lzwenc.LZWEnc.class"
+      width = "100%"
+      height = "500">
+      <!-- V anglické variantě stránek musí být en -->
+      <param name="locale" value="en" />
+    </applet>
+  </div><!-- applet -->
+  </div>
+
+  </div><!-- main -->
+  <div id="footer">
+   <div class="lang">
+     <a href="index_cs.html">česky</a>
+   </div>
+   <a href="#">back</a>
+   <a href="../index_en.html">main page</a>
+   <a href="../content.html">content</a>
+   <a href="#">next</a>
+  </div>
+</div>
+</body>
+</html>
