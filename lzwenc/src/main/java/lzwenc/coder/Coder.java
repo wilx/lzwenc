@@ -1,5 +1,3 @@
-/**
- */
 package lzwenc.coder;
 
 import java.util.BitSet;
@@ -16,12 +14,12 @@ interface Coder
      * @param num A number to encode.
      * @return Resulting bit string.
      */
-    public BitSet encode (long num);
+    BitSet encode(long num);
 
     /**
      * Returns length of code for given number, in bits.
      * @param num A number to encode.
      * @return Length in bits.
      */
-    public int codeLen (long num);
+    int codeLen(long num);
 }

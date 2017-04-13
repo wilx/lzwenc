@@ -1,6 +1,3 @@
-/**
- *
- */
 package lzwenc.compr;
 import java.util.HashMap;
 
@@ -24,7 +21,7 @@ public class InnerNode
     InnerNode
     nextNode (byte ch)
     {
-        return edges.get (Byte.valueOf (ch));
+        return edges.get (ch);
     }
 
     @Override
@@ -33,11 +30,11 @@ public class InnerNode
     insertNode (Node n, byte ch)
     {
         assert n.getClass().isInstance(InnerNode.class);
-        Byte b = Byte.valueOf (ch);
+        Byte b = ch;
         assert edges.get (b) == null;
         edges.put (b, (InnerNode)n);
     }
 
 
-    private HashMap<Byte, InnerNode> edges = new HashMap<Byte, InnerNode> ();
-};
+    private HashMap<Byte, InnerNode> edges = new HashMap<>();
+}

@@ -15,7 +15,6 @@ import java.awt.Point;
 import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -45,7 +44,7 @@ public class TreeLayout
 
     public static int DEFAULT_DISTY = 75;
 
-    protected transient Set<Vertex> allreadyDone = new HashSet<Vertex> ();
+    protected transient Set<Vertex> allreadyDone = new HashSet<>();
 
     protected int distX = DEFAULT_DISTX;
 
@@ -88,12 +87,6 @@ public class TreeLayout
     {
     }
 
-    @Override
-    public void applyFilter (final Graph g)
-    {
-        super.applyFilter (g);
-    }
-
     void buildTree ()
     {
         m_currentPoint = new Point (getCurrentSize ().width / 2, 20);
@@ -115,19 +108,17 @@ public class TreeLayout
 
             setCurrentPositionFor (v);
 
-            final int sizeXofCurrent = ((Integer) v.getUserDatum (getDimensionBaseKey ())).intValue ();
+            final int sizeXofCurrent = (Integer) v.getUserDatum(getDimensionBaseKey());
 
             int lastX = x - sizeXofCurrent / 2;
 
             int sizeXofChild;
             int startXofChild;
 
-            for (final Iterator<Vertex> j = v.getSuccessors ().iterator (); j.hasNext ();)
-            {
-                final Vertex element = j.next ();
-                sizeXofChild = ((Integer) element.getUserDatum (getDimensionBaseKey ())).intValue ();
+            for (final Vertex element : (Set<Vertex>)v.getSuccessors()) {
+                sizeXofChild = (Integer) element.getUserDatum(getDimensionBaseKey());
                 startXofChild = lastX + sizeXofChild / 2;
-                buildTree (element, startXofChild);
+                buildTree(element, startXofChild);
                 lastX = lastX + sizeXofChild + distX;
             }
             m_currentPoint.y -= distY;
@@ -158,37 +149,30 @@ public class TreeLayout
         int size = 0;
         final int childrenNum = v.getSuccessors ().size ();
         final StringLabeller ll = StringLabeller.getLabeller ((Graph) v.getGraph ());
-        final TreeSet<Vertex> successors = new TreeSet<Vertex> (new VertexComparator (
+        final TreeSet<Vertex> successors = new TreeSet<>(new VertexComparator(
                 ll));
         successors.addAll (v.getSuccessors ());
         if (childrenNum != 0)
         {
             Vertex element;
-            for (final Iterator<Vertex> iter = successors.iterator (); iter.hasNext ();)
-            {
-                element = iter.next ();
-                size += calculateDimensionX (element) + distX;
+            for (Vertex successor : successors) {
+                element = successor;
+                size += calculateDimensionX(element) + distX;
             }
         }
         size = Math.max (0, size - distX);
-        v.setUserDatum (getDimensionBaseKey (), Integer.valueOf (size),
-                UserData.REMOVE);
+        v.setUserDatum (getDimensionBaseKey (), size, UserData.REMOVE);
         return size;
     }
 
     public int getDepth (final Vertex v)
     {
         int depth = 0;
-        for (final Iterator<Vertex> i = v.getSuccessors ().iterator (); i.hasNext ();)
-        {
-            final Vertex c = i.next ();
-            if (c.getSuccessors ().isEmpty ())
-            {
+        for (final Vertex c : (Set<Vertex>)v.getSuccessors()) {
+            if (c.getSuccessors().isEmpty()) {
                 depth = 0;
-            }
-            else
-            {
-                depth = Math.max (depth, getDepth (c));
+            } else {
+                depth = Math.max(depth, getDepth(c));
             }
         }
 
@@ -230,11 +214,6 @@ public class TreeLayout
         buildTree ();
     }
 
-    /**
-     * ?
-     *
-     * @see edu.uci.ics.jung.visualization.AbstractLayout#initialize_local()
-     */
     // protected void initialize_local() {
     //
     // }
@@ -251,18 +230,13 @@ public class TreeLayout
     @Override
     protected void initializeLocations ()
     {
-        for (final Iterator<Vertex> iter = getGraph ().getVertices ().iterator (); iter
-                .hasNext ();)
-        {
-            final Vertex v = iter.next ();
-
-            Coordinates coord = (Coordinates) v.getUserDatum (getBaseKey ());
-            if (coord == null)
-            {
-                coord = new Coordinates ();
-                v.addUserDatum (getBaseKey (), coord, UserData.REMOVE);
+        for (final Vertex v : (Set<Vertex>)getGraph().getVertices()) {
+            Coordinates coord = (Coordinates) v.getUserDatum(getBaseKey());
+            if (coord == null) {
+                coord = new Coordinates();
+                v.addUserDatum(getBaseKey(), coord, UserData.REMOVE);
             }
-            initialize_local_vertex (v);
+            initialize_local_vertex(v);
         }
     }
 
@@ -298,17 +272,13 @@ public class TreeLayout
     {
         try
         {
-            for (final Iterator<Vertex> iter = getGraph ().getVertices ().iterator (); iter
-                    .hasNext ();)
-            {
-                final Vertex v = iter.next ();
-                Coordinates coord = getCoordinates (v);
-                if (coord == null)
-                {
-                    coord = new Coordinates ();
-                    v.addUserDatum (getBaseKey (), coord, UserData.REMOVE);
-                    initializeLocation (v, coord, getCurrentSize ());
-                    initialize_local_vertex (v);
+            for (final Vertex v : (Set<Vertex>)getGraph().getVertices()) {
+                Coordinates coord = getCoordinates(v);
+                if (coord == null) {
+                    coord = new Coordinates();
+                    v.addUserDatum(getBaseKey(), coord, UserData.REMOVE);
+                    initializeLocation(v, coord, getCurrentSize());
+                    initialize_local_vertex(v);
                 }
             }
             allreadyDone.clear ();

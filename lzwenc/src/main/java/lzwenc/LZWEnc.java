@@ -1,6 +1,6 @@
-/**
- * This package is implementation of LZW compression algorithm
- * as applet for the 36KOD course on CTU FEE, Prague.
+/*
+  This package is implementation of LZW compression algorithm
+  as applet for the 36KOD course on CTU FEE, Prague.
  */
 package lzwenc;
 
@@ -44,13 +44,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.security.AccessControlException;
-import java.util.Iterator;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 
 import lzwenc.coder.Binary;
@@ -175,7 +173,6 @@ class LZWEnc
             highlightLine (10);
 
             final DirectedSparseVertex new_v = new DirectedSparseVertex ();
-            assert new_v !=null;
             final DirectedSparseVertex prev_v = (DirectedSparseVertex)node_to_vertex (prev_node);
             assert prev_v != null;
 
@@ -191,7 +188,7 @@ class LZWEnc
             }
             final DirectedSparseEdge e = new DirectedSparseEdge (prev_v, new_v);
             graph.addEdge (e);
-            e.setUserDatum ("letter", Character.valueOf (read_char), UserData.CLONE);
+            e.setUserDatum ("letter", read_char, UserData.CLONE);
             //vv = new VisualizationViewer (layout, renderer);
 
             repaint_graph ();
@@ -287,8 +284,8 @@ class LZWEnc
     void
     repaint_graph ()
     {
-        for(final Iterator<Vertex> iterator=graph.getVertices().iterator(); iterator.hasNext(); ) {
-            layout.unlockVertex(iterator.next());
+        for (Vertex o : (Set<Vertex>)graph.getVertices()) {
+            layout.unlockVertex(o);
         }
         layout.update ();
         if (!vv.isVisRunnerRunning())
@@ -339,7 +336,7 @@ class LZWEnc
         }
         shApplet = new LZWEnc ();
         final JFrame sfWindow = new JFrame("LZW encoding");
-        sfWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        sfWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         sfWindow.setContentPane(shApplet);
         shApplet.init();
         sfWindow.pack();
@@ -482,9 +479,9 @@ class LZWEnc
                 {
                     final Object picked = vx.getUserDatum ("picked");
                     final Object added = vx.getUserDatum ("added");
-                    if (picked != null && ((Boolean)picked).booleanValue ())
+                    if (picked != null && (Boolean) picked)
                         return Color.RED;
-                    else if (added != null && ((Boolean)added).booleanValue ())
+                    else if (added != null && (Boolean) added)
                         return Color.YELLOW;
                     else
                         return Color.GREEN;
@@ -589,17 +586,8 @@ class LZWEnc
         @Override
         public
         boolean
-        accept (final File file)
-        {
-            if (file != null)
-            {
-                if (file.isDirectory ())
-                    return true;
-                else
-                    return file.getName ().endsWith (".jpg");
-            }
-            else
-                return false;
+        accept (final File file) {
+            return file != null && (file.isDirectory() || file.getName().endsWith(".jpg"));
         }
 
         @Override
@@ -754,4 +742,4 @@ class LZWEnc
         VALID = abc.toString ();
     }
     public static final String ROOT_NODE_LABEL = "R";
-};
+}

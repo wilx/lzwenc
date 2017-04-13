@@ -1,6 +1,3 @@
-/**
- *
- */
 package lzwenc;
 
 import java.awt.FlowLayout;

@@ -1,5 +1,5 @@
-/**
- * This package implements byte oriented LZW compression.
+/*
+  This package implements byte oriented LZW compression.
  */
 package lzwenc.compr;
 
@@ -7,21 +7,21 @@ package lzwenc.compr;
  * @author Václav Haisman
  *
  */
-public 
+public
 class LZWEncContext
 {
     /**
      * @author Václav Haisman
      *
      */
-    public 
+    public
     interface CompressionObserver
     {
-        public void compressionStep (LZWEncContext ctx, byte letter, int output,
-                                     Node prev, Node current, Node added);
-    };
-    
- 
+        void compressionStep(LZWEncContext ctx, byte letter, int output,
+                Node prev, Node current, Node added);
+    }
+
+
     public
     LZWEncContext (CompressionObserver obs, int num_nodes)
     {
@@ -31,13 +31,13 @@ class LZWEncContext
         node_count = num_nodes;
         observer = obs;
     }
-    
+
     public
     LZWEncContext (CompressionObserver obs)
     {
         this (obs, 256);
     }
-    
+
     public
     LZWEncContext ()
     {
@@ -49,7 +49,7 @@ class LZWEncContext
         });
     }
 
-    
+
     public
     int
     encLetter (byte letter)
@@ -59,57 +59,57 @@ class LZWEncContext
         if (next == null)
         {
             assert node != tree;
-            
+
             int output = node.getNum ();
             int num = node_count;
             RootNode root = tree;
             InnerNode new_current = root.nextNode (letter);
-            
+
             // Insert new node.
             Node new_node = new InnerNode (num);
             node.insertNode (new_node, letter);
             node_count += 1;
             current = new_current;
-            observer.compressionStep (this, letter, output, node, current, new_node);          
+            observer.compressionStep (this, letter, output, node, current, new_node);
             return output;
         }
-        else 
+        else
         {
             current = next;
             observer.compressionStep (this, letter, -1, node, current, null);
             return -1;
         }
     }
-    
+
     public
     int
     finishEncoding ()
     {
         return current.getNum ();
     }
-    
-    public 
-    RootNode 
+
+    public
+    RootNode
     getTree ()
     {
         return tree;
     }
 
-    public 
-    Node 
+    public
+    Node
     getCurrent ()
     {
         return current;
     }
 
-    public 
-    int 
+    public
+    int
     getNodeCount ()
     {
         return node_count;
     }
 
-    
+
     protected RootNode tree;
     protected Node current;
     protected int node_count;

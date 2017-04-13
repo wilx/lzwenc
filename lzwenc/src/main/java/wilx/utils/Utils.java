@@ -1,6 +1,3 @@
-/**
- *
- */
 package wilx.utils;
 
 import java.util.BitSet;
@@ -34,7 +31,7 @@ class Utils
     String
     bitSet2String (final BitSet bs)
     {
-        final StringBuffer sb = new StringBuffer ();
+        final StringBuilder sb = new StringBuilder();
         for (int i = 0; i < bs.length (); ++i)
         {
             final char ch = bs.get (bs.length () - i) ? '1' : '0';

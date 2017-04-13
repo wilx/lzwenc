@@ -1,6 +1,3 @@
-/**
- *
- */
 package lzwenc.coder;
 
 import java.util.BitSet;
@@ -41,7 +38,7 @@ class Binary
         BitSet bs = new BitSet (width);
         int w = Math.min (width, Long.SIZE - 1);
         for (int i = 0; i < w; ++i, num >>>= 1)
-            bs.set (i, (num & 1) == 1 ? true : false);
+            bs.set (i, (num & 1) == 1);
         return bs;
     }
 

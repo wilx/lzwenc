@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>org.gnu.gettext</groupId>
 			<artifactId>libintl</artifactId>
-			<version>0.18.2</version>
+			<version>0.18.3</version>
 		</dependency>
 
 		<dependency>
@@ -40,12 +40,12 @@
 			<artifactId>Dip</artifactId>
 			<version>1.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>wilx.org.jibble</groupId>
 			<artifactId>epsgraphics</artifactId>
 			<version>1.0</version>
-		</dependency>		
+		</dependency>
 	</dependencies>
 
 	<properties>

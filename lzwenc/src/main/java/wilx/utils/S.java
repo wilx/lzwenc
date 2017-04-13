@@ -1,6 +1,3 @@
-/**
- *
- */
 package wilx.utils;
 
 import gnu.gettext.GettextResource;

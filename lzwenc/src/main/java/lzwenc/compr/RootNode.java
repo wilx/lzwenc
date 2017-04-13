@@ -1,6 +1,3 @@
-/**
- *
- */
 package lzwenc.compr;
 
 
@@ -43,4 +40,4 @@ class RootNode
     }
 
 	private final InnerNode[] edges;
-};
+}

@@ -1,6 +1,3 @@
-/**
- *
- */
 package lzwenc.compr;
 
 /**
@@ -28,4 +25,4 @@ class Node
     abstract void insertNode (Node n, byte ch);
 
 	private int num;
-};
+}
